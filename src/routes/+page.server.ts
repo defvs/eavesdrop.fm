@@ -33,7 +33,7 @@ export const POST: PageServerLoad = async ({ request }) => {
 				'Content-Type': 'application/json',
 				Authorization: `Token ${params.token}`
 			},
-			body: generateListenbrainzBody(body)
+			body: await generateListenbrainzBody(body)
 		})
 			.then(statusCheck)
 			.then((r) => r.json())
