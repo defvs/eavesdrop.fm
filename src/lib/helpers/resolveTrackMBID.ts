@@ -1,5 +1,7 @@
 import type MBIDs from '$lib/typing/mbids';
 
+const MB_BASE_URL = "https://musicbrainz.org/ws/2"
+
 const resolveMBIDs = async (track_mbid: string | undefined): Promise<MBIDs> => {
     // Create an instance of MBIDs
     const mbids: MBIDs = {
@@ -10,11 +12,10 @@ const resolveMBIDs = async (track_mbid: string | undefined): Promise<MBIDs> => {
     if (track_mbid === undefined) return mbids;
 
     // Define the URL to call the MusicBrainz API
-    const url = `http://musicbrainz.org/ws/2/release?track=${track_mbid}&fmt=json`;
 
     try {
         // Make the API call to get the release information
-        const response = await fetch(url);
+        const response = await fetch(`${MB_BASE_URL}/release?track=${track_mbid}&fmt=json`);
         const result = await response.json();
 
         // Put result.releases[0].id into MBIDs.release_mbid
